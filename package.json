@@ -1,0 +1,38 @@
+{
+  "name": "esn",
+  "version": "1.0.0",
+  "description": "Environment Sensor Network",
+  "main": "index.js",
+  "dependencies": {
+    "ajncookie": "0.0.5",
+    "bind": "^0.1.7",
+    "body-parser": "^1.15.0",
+    "ejs": "^2.4.1",
+    "errorhandler": "^1.4.3",
+    "express": "^4.13.4",
+    "eyes": "^0.1.8",
+    "favicon": "0.0.2",
+    "guid": "0.0.12",
+    "hat": "0.0.3",
+    "httpdispatcher": "^1.0.0",
+    "middleware": "^1.0.0",
+    "moment": "^2.13.0",
+    "mongodb": "^2.1.14",
+    "node-uuid": "^1.4.7",
+    "polly": "^0.9.1",
+    "request": "^2.69.0",
+    "serve-favicon": "^2.3.0",
+    "ws": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.cloudno.de/git/marmat89/2188-4e144ea52ec7808f7c8f58c634bcfb3c.git"
+  },
+  "author": "Matteo Mariani",
+  "license": "ISC"
+}

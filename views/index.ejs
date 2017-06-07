@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include shared/header %>
+<script src="controller/shared/SharedViewModel.js"></script>
+<script src="controller/index/IndexViewModel.js"></script>
+<script src="controller/shared/Measure.js"></script>
+<script src="controller/shared/CallURL.js"></script>
+<script src="controller/shared/IMeasure.js"></script>
+<script src="controller/shared/Sensor.js"></script>
+<script src="controller/shared/Station.js"></script>
+<script src="controller/shared/GUID.js"></script>
+<script src="controller/shared/StationMeasure.js"></script>
+<body>
+<% include shared/navbar %>
+<div class="u-page-content nav-spa">
+    <div class="row">
+        <h1>Environment Sensor Network</h1>
+        <p>E.S.N. is a monitoring network developed by UNIBO SmartCity Laboratory to collect environmental parameters.
+            The system keep data from cheap environmental sensors distributed throughout the country, data can be used
+            for analyze and study pollution and energy saving.</p>
+    </div>
+
+    <!-- ko if: stationList().length>0 -->
+    <hr>
+    <div class="row">
+        <!-- ko foreach: stationList-->
+        <div class="col-lg-3">
+            <div class="esn-panel-overview">
+                <div>
+                    <h4>
+                        <!-- ko text: StationName -->
+                        <!-- /ko-->
+                    </h4>
+
+                    <div class="row">
+                        <div class="col-lg-12" style="text-align: center">
+                            <!-- ko if: LastMeasure().length==0 -->
+                            <i class="fa fa-spinner fa-pulse fa-fw esn-sync-pannel"></i>
+                            <!-- /ko-->
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table" cellspacing="0" width="100%">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    <!-- ko foreach: LastMeasure-->
+                    <tr>
+                        <td style="border-style: hidden">
+                            <!-- ko text: sensor.SensorName -->
+                            <!-- /ko-->
+                        </td>
+                        <td style="border-style: hidden">
+                            <!-- ko text: sensorValue.toFixed(1) -->
+                            <!-- /ko-->
+                            <!-- ko text: sensor.SensorUOM -->
+                            <!-- /ko-->
+                        </td>
+                    </tr>
+                    <!-- /ko-->
+                    </tbody>
+
+                </table>
+
+
+            </div>
+        </div>
+        <!-- /ko-->
+    </div>
+    <!-- /ko-->
+
+    <div class="row">
+        <div class="col-lg-12" style="text-align: center">
+            <!-- ko if: stationList().length==0 -->
+            <i class="fa fa-refresh fa-spin fa-fw esn-sync"></i>
+            <span>Sync...</span>
+            <!-- /ko-->
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-lg-12" style="text-align: center">
+            <img class="esn-index-logo">
+        </div>
+    </div>
+
+    <hr>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+
+        </div>
+    </div>
+
+
+</div>
+
+<% include shared/footer %>
+<!-- /container -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document).ready(function () {
+            ko.components.register('person-table', {
+                viewModel: {require: 'public/controller/index/IndexViewModel'}
+            });
+            ko.applyBindings(new monitor.IndexViewModel);
+        });
+    });
+</script>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script
+        src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>

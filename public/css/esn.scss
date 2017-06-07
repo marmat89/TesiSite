@@ -1,0 +1,384 @@
+$brand-color: #267f00;
+$brand-color-dark: rgba(36, 95, 0, 0.14);
+$brand-color-light: #D7DF23;
+$hover-brand-color: rgba(236, 244, 35, 0.51);
+$pannel-brand-color: rgba(38, 127, 0, 0.7);
+$pannel-body-brand-color: rgba(236, 244, 35, 0.6);
+$background-color: #f6f6f6;
+$text-color-inverse: #234d00;
+$text-color: #fdffee;
+$page-padding: 5%;
+$brand-color-background: $pannel-brand-color url(../img/index/pannel_background.png) repeat center;
+$brand-color-light-background: $pannel-body-brand-color url(../img/index/pannel_background.png) repeat center;
+
+
+$brand-color-light-inverted-gradient: -webkit-linear-gradient(top,$brand-color-light 0, $pannel-body-brand-color 100%);
+$brand-color-light-gradient: -webkit-linear-gradient(top, $pannel-body-brand-color 0, $brand-color-light 100%);
+$brand-color-background-light-gradient: -webkit-linear-gradient(top, rgb(253, 253, 254) 0, rgba(230, 238, 35, 0.13) 100%);
+html, body, #wrapper {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v6/zhcz-_WihjSQC0oHJ9TCYPk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+.xlsx, .xls, .csv, .txt {
+  border-width: 0px;
+  border-radius: 10px;
+  width: 30px;
+  height: 40px;
+  margin-right: 10px;
+  padding: 11px 15px 12px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  border-color: $background-color;
+  border-style: solid;
+  border-width: 1px;
+  float: right;
+  text-decoration: none;
+  color: transparent;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.xlsx {
+  background: url(../img/xlsx.svg) no-repeat center;
+}
+
+.xls {
+  background: url(../img/xls.svg) no-repeat center;
+}
+
+.csv {
+  background: url(../img/csv.svg) no-repeat center;
+}
+
+.txt {
+  background: url(../img/txt.svg) no-repeat center;
+}
+
+html {
+  background-color: $background-color;
+}
+
+body {
+  background-color: $background-color;
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  color: $text-color-inverse;
+}
+
+hr {
+  border-top: 1px dotted $brand-color;
+}
+
+.esn-index-logo {
+  max-height: 50px;
+  content: url("../img/logo/esn_logo_brand_green.png");
+}
+
+.esn-navbar-logo {
+  max-height: 40px;
+  padding-top: 10px;
+  content: url("../img/logo/esn_logo.png");
+}
+
+.esn-sync {
+  color: $brand-color;
+}
+
+.esn-sync-pannel {
+  color: $background-color;
+}
+
+.esn-panel-detail {
+  padding-top: 0px;
+  background-color: #fdfdfe;
+  border-color: #dbdbdc;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  img {
+    text-align: center;
+    max-height: 100px;
+    max-width: 100px;
+  }
+  h4 {
+    padding-right: 10px;
+    padding-left: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: $brand-color;
+    margin-bottom: 0px;
+  }
+  p {
+    padding-left: 10px;
+  }
+
+  span {
+    padding-left: 10px;
+  }
+  i {
+    padding-left: 10px;
+  }
+  thead {
+    background-image: $brand-color-background-light-gradient;
+  }
+  th {
+    color: $brand-color;
+    font-weight: normal;
+  }
+  .esn-table-raw:hover {
+    cursor: pointer;
+    background-color: $text-color;
+  }
+}
+
+.esn-panel-sensor-detail {
+  background-color: #fdfdfe;
+  border-color: #dbdbdc;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  h4 {
+    padding-right: 10px;
+    padding-left: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: $brand-color;
+    margin-bottom: 0px;
+  }
+  label {
+    text-align: right;
+  }
+}
+
+.esn-btn-info {
+  color: $brand-color;
+}
+
+.esn-btn-info:hover {
+  color: $brand-color-light;
+}
+
+.esn-panel-overview {
+  border-color: $brand-color;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  color: $text-color-inverse;
+  //background-color: $old-brand-color;
+  background: $pannel-brand-color url(../img/index/pannel_background.png) repeat center;
+  tbody {
+    background-color: $pannel-body-brand-color;
+    margin: 0px;
+
+  }
+  h4 {
+    padding: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: $background-color;
+  }
+}
+
+.esn-collapse {
+  div {
+    background-image: $brand-color-light-gradient;
+  }
+}
+
+.esn-td {
+  border-top: 0px
+}
+
+.esn-chart{
+  background-color: #fff;
+}
+.esn-title-bar {
+  color: $text-color;
+  text-align: left;
+  padding: 5px;
+  background-image:$brand-color-light-gradient;
+  border-radius: 10px     10px      0           0;
+  span {
+    color: $text-color-inverse;
+    margin: 10px;
+    font-weight: bold;
+    font-size: medium;
+    display: inline-flex;
+  }
+}
+.esn-footer-bar {
+  span {
+    color: $text-color-inverse;
+    margin: 10px;
+    font-weight: bold;
+    font-size: medium;
+    display: inline-flex;
+  }
+  button{
+    color: $text-color-inverse;
+    text-align: center;
+    padding: 5px;
+    border-width: 0px;
+    width: 100%;
+    background-image:$brand-color-light-inverted-gradient;
+    border-radius:  0           0       10px     10px;
+  }
+  .dropdown-menu{
+  a:hover{
+    background-image:$brand-color-light-inverted-gradient;
+  }
+    width: 100%;
+    margin-top: -7px;
+    border-width: 0px;
+    border-radius: 0px;
+    padding: 0px;
+    text-align: center;
+
+  }
+}
+
+.esn-table {
+  caption {
+    color: $text-color;
+    text-align: left;
+    padding: 5px;
+    border-radius: 10px     10px      0           0;
+    background: $pannel-brand-color url(../img/index/pannel_background.png) repeat center;
+    span {
+      margin: 10px;
+      font-weight: bold;
+      font-size: medium;
+      display: inline-flex;
+    }
+  }
+  td {
+    cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  th {
+    background-color: $hover-brand-color;
+  }
+  .esn-table-raw:hover {
+    cursor: pointer;
+    background-image: $brand-color-light-gradient;
+  }
+  a {
+    color: $text-color-inverse;
+  }
+
+}
+
+.esn-panel-body {
+  padding: 0;
+  .list-group {
+    margin: -1px;
+  }
+
+}
+
+.esn-btn-list {
+  a {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    height: 50px;
+    text-align: left;
+    line-height: 35px;
+  }
+  a:hover {
+    background-image: $brand-color-light-gradient;
+  }
+  a:focus {
+    background-image: $brand-color;
+  }
+  div {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.esn-badge {
+  color: $text-color;
+  background-color: $brand-color;
+}
+
+.u-page-content {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: $page-padding;
+  padding-right: $page-padding;
+  background-color: $background-color;
+  height: 100%;
+  .row-map {
+    height: 100%;
+  }
+
+}
+
+.navbar {
+  padding-left: $page-padding;
+  padding-right: $page-padding;
+  //background-color: $brand-color;
+  background: $pannel-brand-color url(../img/index/pannel_background.png) repeat center;
+  //background-image: -webkit-linear-gradient(top, $pannel-body-brand-color 0, $brand-color-light 100%);
+  a {
+    color: $text-color;
+    //font-weight: bold;
+  }
+  a:hover {
+    background-color: $hover-brand-color !important;
+    color: $text-color
+  }
+
+}
+
+.u-page-header + .u-page-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: block !important;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .26);
+}
+
+.u-page-footer {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  //background-color: $brand-color;
+  background: $pannel-brand-color url(../img/index/pannel_background.png) repeat center;
+  //background-image: -webkit-linear-gradient(top, $pannel-body-brand-color 0, $brand-color-light 100%);
+  color: $text-color;
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  .content {
+    padding-left: $page-padding;
+    padding-right: $page-padding;
+  }
+  .row img {
+    padding: 0 20px 0 0;
+    float: left;
+  }
+}

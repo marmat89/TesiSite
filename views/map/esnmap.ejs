@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="it">
+<% include ../shared/header %>
+<body>
+<script src="js/Chart.js"></script>
+<script src="js/knockout.chart.js"></script>
+<script src="controller/shared/SharedViewModel.js"></script>
+<script src="controller/shared/Sorter.js"></script>
+<script src="controller/map/MapViewModel.js"></script>
+<script src="controller/shared/CallURL.js"></script>
+<script src="controller/shared/Measure.js"></script>
+<script src="controller/shared/IMeasure.js"></script>
+<script src="controller/shared/Sensor.js"></script>
+<script src="controller/shared/Station.js"></script>
+<script src="controller/shared/ChartData.js"></script>
+<script src="controller/shared/GUID.js"></script>
+
+<% include ../shared/navbar %>
+
+<div class="u-page-content">
+    <div class="row row-map">
+        <h2>E.S.N. Map <a class="btn" role="button" data-toggle="collapse" href="#collapse-info"
+                          aria-expanded="false" aria-controls="collapse-info">
+                <i class="fa fa-info-circle esn-btn-info" aria-hidden="true"></i>
+            </a></h2>
+
+        <div class="collapse esn-collapse" id="collapse-info">
+            <div class="well">
+                <p>ESN è una rete di monitoraggio sviluppata dall'università degli studi di Bologna per la raccolta di
+                    parametri ambientali in ambito Smart City. Il sistema raccoglie dati
+                    provenienti da sensori ambientali distribuiti sul territorio, col fine di analizzarli e studiarli
+                    per studiare inquinamento e risparmio energetico. </p>
+
+            </div>
+        </div>
+        <hr>
+        <div class="row row-map">
+            <div class="col-lg-3">
+                <div class="list-group esn-btn-list">
+                    <!-- ko foreach: stationList-->
+                    <a href="#" class="list-group-item"
+                       data-bind="click: $parent.getStationLastMeasure('stationLastMeasure',StationID), $parent.setCenter()">
+                        <div class="col-lg-9">
+                            <!-- ko text: StationName -->
+                            <!-- /ko--></div>
+                        <div class="col-lg-3">
+                            <span class="badge esn-badge"><!-- ko text: MeasureNumber --><!-- /ko--></span></div>
+                    </a>
+                    <!-- /ko-->
+                </div>
+            </div>
+
+            <!--CENTER PAGE-->
+            <div class="col-lg-6" style="height:100%">
+
+                <div id="mapDev" style="height: 80%"></div>
+                <script>
+                    var map;
+                    function initMap() {
+                        var mapCanvasCount = document.getElementById("mapDev");
+                        ko.applyBindings(new monitor.MapViewModel(mapCanvasCount));
+                    }
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmN40nwYE3-Lu6aBFM0LCxbtnaGv6pLEM&callback=initMap"
+                        async defer></script>
+            </div>
+
+
+            <!--RIGHT COL PAGE-->
+            <div class="col-lg-3 ">
+                <!-- ko if: currentStation-->
+                <div class="row esn-panel-detail">
+                    <div class="col-lg-12">
+                        <div data-bind="with: currentStation">
+                            <h4>
+                                <!-- ko text: StationName -->
+                                <!-- /ko-->
+                            </h4>
+                            <p>
+                                <!-- ko text: StationDescription -->
+                                <!-- /ko-->
+                            </p>
+                            <div style="text-align: center">
+                                <img data-bind="attr: { src:  StationImage }" alt="Mountain View">
+                                <!-- ko if: !StationDebugger -->
+                    <span class="fa-stack fa-lg" title="NO Debugger Onboard">>
+                    <i class="fa fa-bug fa-stack-1x"></i>
+                    <i class="fa fa-ban fa-stack-2x text-danger"></i>
+                    </span>
+                                <!-- /ko-->
+
+                                <!-- ko if: StationDebugger -->
+                                <i class="fa fa-bug fa-lg" aria-hidden="true" title="Debugger Active"></i>
+                                <!-- /ko-->
+                            </div>
+
+
+                        </div>
+                        <table data-bind="if: measureList().length > 0" class="table" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>SensorName</th>
+                                <th>SensorValue</th>
+                            </tr>
+                            </thead>
+                            <tbody class="esn-table" data-bind="if: filteredListObservable">
+
+                            <!-- ko foreach: filteredListObservable-->
+                            <tr class="esn-table-raw" data-bind="click: $parent.setCurrentMeasure($data)">
+                                <td>
+                                    <!-- ko text: sensor.SensorName -->
+                                    <!-- /ko-->
+                                </td>
+                                <td>
+                                    <!-- ko text: sensorValue.toFixed(1) -->
+                                    <!-- /ko-->
+                                    <!-- ko text: sensor.SensorUOM -->
+                                    <!-- /ko-->
+                                </td>
+                            </tr>
+                            <!-- /ko-->
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+                <!-- ko with: currentMeasure-->
+                <div class="esn-panel-sensor-detail row">
+                    <div class="col-sm-12">
+                        <h4>
+                            <!-- ko text: sensor.SensorName -->
+                            <!-- /ko-->
+                        </h4>
+                        <p></p>
+                    </div>
+                    <label for="DataType" class="col-sm-3 control-label">
+                        <!-- ko text: sensor.DataType -->
+                        <!-- /ko-->
+                    </label>
+                    <div class="col-sm-9">
+                        <p id="DataType">
+                            <!-- ko text: sensorValue.toFixed(1) -->
+                            <!-- /ko-->
+                            <!-- ko text: sensor.SensorUOM -->
+                            <!-- /ko-->
+                        </p>
+                    </div>
+                    <label for="MeasureTime" class="col-sm-3 control-label">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    </label>
+                    <div class="col-sm-9">
+                        <p id="MeasureTime">
+                            <!-- ko text: measureTime.format('LLL') --><!-- /ko-->
+                        </p>
+                    </div>
+                </div>
+                <!-- /ko-->
+                <!-- /ko-->
+            </div>
+        </div>
+    </div>
+
+</div>
+<% include ../shared/footer %>
+<!-- /container -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.components.register('esn-map', {
+            viewModel: {require: 'public/controller/chart/MapViewModel.ts'}
+        });
+    });
+</script>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+</body>
+</html>

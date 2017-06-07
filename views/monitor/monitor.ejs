@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="it">
+<% include ../shared/header %>
+
+<script src="controller/shared/SharedViewModel.js"></script>
+<script src="controller/monitor/MonitorViewModel.js"></script>
+<script src="controller/shared/Measure.js"></script>
+<script src="controller/shared/Sorter.js"></script>
+<script src="controller/shared/CallURL.js"></script>
+<script src="controller/shared/IMeasure.js"></script>
+<script src="controller/shared/Sensor.js"></script>
+<script src="controller/shared/Station.js"></script>
+<script src="controller/shared/GUID.js"></script>
+<script src="js/table/bootstrap-table.min.js"></script>
+<link rel="stylesheet" href="js/table/bootstrap-table.css">
+<body>
+<% include ../shared/navbar %>
+
+<div class="u-page-content">
+    <div class="row">
+        <h2>E.S.N. Monitor <a class="btn" role="button" data-toggle="collapse" href="#collapseExample"
+                              aria-expanded="false" aria-controls="collapseExample">
+                <i class="fa fa-info-circle esn-btn-info" aria-hidden="true"></i>
+            </a></h2>
+
+        <div class="esn-collapse collapse" id="collapseExample">
+            <div class="well">
+                <p>ESN è una rete di monitoraggio sviluppata dall'università degli studi di Bologna per la raccolta di
+                    parametri ambientali in ambito Smart City. Il sistema raccoglie dati
+                    provenienti da sensori ambientali distribuiti sul territorio, col fine di analizzarli e studiarli
+                    per studiare inquinamento e risparmio energetico. </p>
+
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-2">
+
+                <h4>Stazioni Meteo</h4>
+                <div class="list-group esn-btn-list">
+                    <a href="#" class="list-group-item"
+                       data-bind="click: getAllMeasure('allMeasure')">All Available
+                    </a>
+                    <!-- ko foreach: stationList-->
+                    <a href="#" class="list-group-item"
+                       data-bind="click: $parent.getStationMeasureTable(StationID)">
+                            <!-- ko text: StationName -->
+                            <!-- /ko-->
+                    </a>
+                    <!-- /ko-->
+                </div>
+
+                <!-- ko if: sensorList().length>1-->
+                <h4>Filtering Sensor</h4>
+                <div class="list-group esn-btn-list">
+                    <a href="#" class="list-group-item" data-bind="click: setFilterSensorCondition('')">All
+                    </a>
+                    <!-- ko foreach: sensorList-->
+                    <a href="#" class="list-group-item"
+                       data-bind="click: $parent.setFilterSensorCondition($data.SensorName)">
+                        <!-- ko text: $data.SensorName -->
+                        <!-- /ko-->
+                    </a>
+                    <!-- /ko-->
+                </div>
+                <!-- /ko-->
+
+                <!-- ko if: typeList().length>1-->
+                <h4>Filtering DataType</h4>
+                <div class="list-group esn-btn-list">
+                    <a href="#" class="list-group-item" data-bind="click: setFilterTypeCondition('')">All
+                    </a>
+                    <!-- ko foreach: typeList -->
+                    <a href="#" class="list-group-item"
+                       data-bind="click: $parent.setFilterTypeCondition($data)">
+                        <!-- ko text: $data -->
+                        <!-- /ko-->
+                    </a>
+                    <!-- /ko-->
+                </div>
+                <!-- /ko-->
+            </div>
+
+
+            <div class="col-lg-9">
+
+                <table id="table" data-bind="if: measureList().length > 0" class="table esn-table" cellspacing="0" width="100%">
+                    <caption>
+                        <span>Environment Sensor Network Measure Table </span>
+                    </caption>
+                    <thead>
+                    <tr>
+                        <th><a href="#" data-bind="click:sortByStationName()">StationName</a></th>
+                        <th><a href="#" data-bind="click:sortBySensorName()">SensorName</a></th>
+                        <th><a href="#" data-bind="click:sortBySensorType()">SensorDataType</a></th>
+                        <th><a href="#" data-bind="click:sortBySensorValue()">SensorValue</a></th>
+                        <th><a href="#" data-bind="click:sortByDateMeasure()">MeasureTime</a></th>
+                    </tr>
+                    </thead>
+                    <tbody class="esn-table" data-bind="if: filteredListObservable">
+
+                    <!-- ko foreach: filteredListObservable-->
+                    <tr class="esn-table-raw" data-bind="click: $parent.setCurrentMeasure($data)">
+                        <td><!-- ko text: station.StationName --><!-- /ko--></td>
+                        <td><!-- ko text: sensor.SensorName --><!-- /ko--></td>
+                        <td><!-- ko text: sensor.DataType --><!-- /ko--></td>
+                        <td><!-- ko text: sensorValue.toFixed(1) --><!-- /ko--></td>
+                        <td><!-- ko text: measureTime.format('LLL') --><!-- /ko--></td>
+                    </tr>
+                    <!-- /ko-->
+                    </tbody>
+                </table>
+
+                <div data-bind="if: measureList().length == 0">
+                    <h4>
+                        Step 1 - Select an available station.
+                    </h4>
+                    <p>
+                        To view data you need to load a series of measurements from cloud, you can choose among your
+                        available station.
+                        Click on LoadStation button and attend your data!!
+                    </p>
+
+                    <hr>
+                    <h4>
+                        Step 2 - Filter data
+                    </h4>
+                    <p>
+                        There are too many measurements? You can filter data quickly , by sensor or by type, all types
+                        and sensors at your disposal are listed in selectors button. If u select All u see data
+                        with no filter.
+                    </p>
+
+                    <hr>
+                    <h4>
+                        Step 3 - Export your measures
+                    </h4>
+                    <p>
+                        With ESN Monitor's Tools you can easily export data you viewing in Different Formats
+                    </p>
+                </div>
+
+            </div>
+        <!--    <div class="col-lg-3">
+
+                <div data-bind="with: currentMeasure" class="esn-panel-detail">
+                    <h4>
+                        &lt;!&ndash; ko text: station.StationName &ndash;&gt;
+                        &lt;!&ndash; /ko&ndash;&gt;
+                    </h4>
+                    <p>
+                        &lt;!&ndash; ko text: station.StationDescription &ndash;&gt;
+                        &lt;!&ndash; /ko&ndash;&gt;
+                    </p>
+
+                    <hr>
+
+                    <label for="DataType" class="col-sm-3 control-label">SENSOR
+                    </label>
+                    <div class="col-sm-9">
+                        <p id="DataType">
+                            &lt;!&ndash; ko text: sensor.SensorName &ndash;&gt;
+                            &lt;!&ndash; /ko&ndash;&gt;
+                        </p>
+                    </div>
+                    <label for="DataType" class="col-sm-3 control-label">
+                        &lt;!&ndash; ko text: sensor.DataType &ndash;&gt;
+                        &lt;!&ndash; /ko&ndash;&gt;
+                    </label>
+                    <div class="col-sm-9">
+                        <p id="DataType">
+                            &lt;!&ndash; ko text: sensorValue &ndash;&gt;
+                            &lt;!&ndash; /ko&ndash;&gt;
+                        </p>
+                    </div>
+
+                </div>
+-->
+            </div>
+        </div>
+    </div>
+
+    <% include ../shared/footer %>
+    <!-- /container -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+            ko.components.register('person-table', {
+                viewModel: {require: 'public/controller/monitor/MonitorViewModel'}
+            });
+            ko.applyBindings(new monitor.MonitorViewModel);
+
+        });
+    </script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+</body>
+</html>
